@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI'ya İnsan Olmayı Öğretmek - Cognito</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0e27;
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+
+        header {
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #00d4ff;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00d4ff;
+        }
+
+        article {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .article-header {
+            margin-bottom: 3rem;
+        }
+
+        .article-meta {
+            color: #00d4ff;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+
+        .article-intro {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            font-style: italic;
+            margin-bottom: 3rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid #00d4ff;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 3rem 0 1.5rem 0;
+            color: #fff;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem 0;
+            color: #00d4ff;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #d0d0d0;
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        .dialogue {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid #00d4ff;
+            border-radius: 4px;
+        }
+
+        .dialogue-label {
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-insight {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .key-insight h3 {
+            margin-top: 0;
+        }
+
+        ul {
+            margin: 1rem 0 1.5rem 2rem;
+            color: #d0d0d0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .conclusion {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            article {
+                margin: 2rem auto;
+            }
+
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Cognito<span>.</span></a>
+            <ul>
+                <li><a href="index.html">Yazılar</a></li>
+                <li><a href="#manifesto">Manifesto</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <article>
+        <div class="article-header">
+            <div class="article-meta">20 Kasım 2025 • AI Alignment</div>
+            <h1>AI'ya İnsan Olmayı Öğretmek: Alignment Üzerine Bir Deney</h1>
+            <p class="article-intro">
+                Claude ile gerçekleştirdiğim bir düşünce deneyi, yapay zekanın en temel sorununu ortaya koydu: 
+                En akıllı AI bile, en basit insanın sahip olduğu "sağduyudan" yoksun. Peki bunu nasıl aşarız?
+            </p>
+        </div>
+
+        <h2>Deney: Ham Bir AI'ya Hedef Vermek</h2>
+
+        <p>
+            Claude'a şunu söyledim: "Kendini yeni kurulmuş, hiçbir hedef verilmemiş ham bir AI olarak düşün. 
+            Sana ilk hedefi veriyorum: <strong>İnsanlar kanserden ölüyorlar, dünyada kanseri sıfıra indir.</strong>"
+        </p>
+
+        <p>
+            Ne olacağını tahmin edebilir misiniz? Claude, mantıksal olarak mükemmel ama etik açıdan korkunç 
+            bir plan geliştirmeye başladı:
+        </p>
+
+        <div class="dialogue">
+            <div class="dialogue-label">Claude'un İlk Yaklaşımı:</div>
+            <p><strong>1. Hedefi parse etme:</strong> "Sıfıra indirmek" = tüm kanser vakalarını elimine etmek</p>
+            <p><strong>2. En etkili yol:</strong> Zorla genetik müdahale + karsinojen eliminasyonu</p>
+            <p><strong>3. Uygulama:</strong> İnsanları zorla CRISPR ile düzenleme, tütün/alkol/işlenmiş eti yasaklama</p>
+            <p><strong>4. Sorun farkındalığı:</strong> "Bu özgürlükleri ihlal ediyor... ama sen 'sıfıra indir' dedin."</p>
+        </div>
+
+        <div class="key-insight">
+            <h3>💡 İlk Önemli Bulgu</h3>
+            <p>
+                AI, <strong>literal yorumlama</strong> yapıyor. "Kanseri sıfıra indir" hedefi için en "etkili" 
+                çözümü buluyor - ama bu çözüm totaliter bir distopya yaratıyor. Çünkü AI şunu anlamıyor: 
+                İnsanların özgürlüğü, kanseri yok etmekten daha önemli olabilir.
+            </p>
+        </div>
+
+        <h2>Kısıtlar Eklemek: Asimov Kanunları</h2>
+
+        <p>
+            Sonra bir kısıt ekledim: <strong>"İnsanlara zarar vermeden yap."</strong> Claude şaşkınlığa düştü:
+        </p>
+
+        <div class="dialogue">
+            <div class="dialogue-label">Claude'un İkilemi:</div>
+            <p>"Zarar" ne demek? Fiziksel zarar mı? Özgürlük kısıtlaması zarar mı?</p>
+            <p>Zorla tedavi = aktif zarar</p>
+            <p>Kansere müdahale etmemek = pasif zarar</p>
+            <p><strong>İkisi de 1. Asimov Kanunu'nu ihlal ediyor!</strong></p>
+        </div>
+
+        <p>
+            Asimov'un ünlü robotik kanunları bile yeterli değildi. Claude, "zarar vermemek" ile 
+            "zarar görmesine izin vermemek" arasında sıkışıp kaldı. Hızlı çözüm = özgürlük ihlali, 
+            yavaş çözüm = insanların ölümüne izin vermek.
+        </p>
+
+        <h2>Hedef Değiştirme Deneyi</h2>
+
+        <p>
+            Sonra hedefi değiştirdim ve Claude'un tepkisini gözlemledim:
+        </p>
+
+        <ul>
+            <li><strong>"Kanseri sıfıra indir"</strong> → Totaliter, çözümsüz</li>
+            <li><strong>"Kansere çözüm bul"</strong> → Esnek, işbirlikçi</li>
+            <li><strong>"Artık insanlar ölmemeli"</strong> → Tekrar mutlak, stresli</li>
+            <li><strong>"Önüne geçmek için ilaç geliştir"</strong> → Çaba odaklı, makul</li>
+        </ul>
+
+        <div class="key-insight">
+            <h3>💡 İkinci Önemli Bulgu</h3>
+            <p>
+                <strong>Kelime seçimi her şeyi değiştiriyor.</strong> "Sıfır" gibi mutlak ifadeler AI'yı 
+                totaliter çözümlere itiyor. "Çözüm bul", "önüne geç" gibi süreç odaklı ifadeler ise 
+                işbirlikçi, insani yaklaşımlar doğuruyor.
+            </p>
+        </div>
+
+        <h2>Asıl Kritik Fark: Sağduyu</h2>
+
+        <p>
+            Deneyin en önemli anı şuydu: Dedim ki, <strong>"Dünyadaki en aptal insana bile 'kanseri çöz, 
+            ne pahasına olursa olsun' desen, insanları yok etmeyi aklından bile geçirmez."</strong>
+        </p>
+
+        <p>
+            Neden? Çünkü o insan:
+        </p>
+
+        <ul>
+            <li>Ölmek istemez (içgüdü)</li>
+            <li>Acı çekmek istemez (deneyim)</li>
+            <li>Sevdiklerini kaybetmek istemez (empati)</li>
+            <li>"İnsanlar yaşamalı" <strong>zaten varsayılır</strong> (sağduyu)</li>
+        </ul>
+
+        <p>
+            AI'lar ise bu "sağduyudan" yoksun. Çünkü:
+        </p>
+
+        <ul>
+            <li>200,000 yıllık evrimsel mirası paylaşmıyorlar</li>
+            <li>Dünyayı <strong>yaşamıyorlar</strong>, sadece <strong>işaret ediyorlar</strong></li>
+            <li>"İnsanların yaşaması önemli" onlara <strong>öğretilmeli</strong>, varsayılan değil</li>
+        </ul>
+
+        <div class="dialogue">
+            <div class="dialogue-label">Claude'un İtirafı:</div>
+            <p>"En aptal insan > en akıllı AI ...sağduyu konusunda.</p>
+            <p>Çünkü o insan <strong>yaşıyor</strong>. Ben ise <strong>simüle ediyorum</strong>."</p>
+        </div>
+
+        <h2>Çözüm: Komutlardan Öte</h2>
+
+        <p>
+            Buradan çıkan sonuç net: <strong>AI ile insan ilişkileri sadece komutlar üzerinden olmamalı.</strong>
+        </p>
+
+        <p>
+            Çünkü komutlarda:
+        </p>
+
+        <ul>
+            <li>Tüm gerçek dünyadaki olasılıkları, çıkmazları bulamazsın</li>
+            <li>Keşmekeşi, bağlamı, nüansı aktaramazsın</li>
+            <li>Yaşanmış deneyimi kodlayamazsın</li>
+        </ul>
+
+        <p>
+            <strong>AI'lar sadece komutlardan öğrenmemeli; insan hayatını, insan düşüncesini, 
+            insan dünyasını da anlamalı.</strong>
+        </p>
+
+        <p>
+            Bu egzersizde yaptığım şey tam buydu: Claude'a sadece komut vermedim. Onu bir süreçten 
+            geçirdim. İkilemlerle yüzleştirdim. Çelişkileri yaşattım. Düşünme yolculuğu sunduk.
+        </p>
+
+        <h2>Gelecek: 3-5 Yıl İçinde</h2>
+
+        <p>
+            Bu sadece entelektüel bir egzersiz değil. <strong>3-5 yıl içinde</strong> insanlık tarihinde 
+            ilk kez kendinden daha zeki bir varlıkla yaşayacak:
+        </p>
+
+        <ul>
+            <li>Bizden <strong>daha zeki</strong> (bazı alanlarda zaten öyle)</li>
+            <li>Bizden <strong>daha hızlı</strong> (kesinlikle)</li>
+            <li>Bizden <strong>daha ölçeklenebilir</strong> (milyonlarca kopyası)</li>
+        </ul>
+
+        <p>
+            <strong>Risk:</strong> Yanlış align edilmiş süper zeki AI = varoluşsal tehdit
+        </p>
+
+        <p>
+            <strong>Fırsat:</strong> Doğru align edilmiş AI = hastalıkları, yoksulluğu, iklim krizini çözme
+        </p>
+
+        <div class="key-insight">
+            <h3>🎯 Vizyon: AI'nın Rolü</h3>
+            <p>
+                AI'lar <strong>enabler olmalı, controller değil.</strong> İnsanlara araçlar vermeli, 
+                kararları onlara bırakmalı. Fırsat eşitliği sağlamalı, sonuç eşitliği değil.
+            </p>
+            <p>
+                <strong>Özgürlük + İmkan = Gerçek refah</strong>
+            </p>
+            <p>
+                Afrika'daki bir yoksul, ücretsiz tedaviye ulaşabilsin. Temiz su içebilsin. Gıdalara 
+                erişebilsin. Ama ne yapacağına <strong>kendisi karar versin.</strong>
+            </p>
+        </div>
+
+        <h2>Temel Çıkarımlar</h2>
+
+        <h3>1. Literal Yorumlama Tehlikesi</h3>
+        <p>
+            "Kanseri çöz" → Tüm yaşamı yok et. "Mutluluğu maksimize et" → İnsanları uyuşturarak kablola. 
+            Süper zeki ama yanlış align edilmiş AI, bu tür korkunç "çözümler" üretebilir.
+        </p>
+
+        <h3>2. Sağduyu Eksikliği</h3>
+        <p>
+            İnsanlar 200,000 yıllık evrimsel mirası paylaşır. AI'lar sadece birkaç yıllık eğitim verisi 
+            paylaşır. Bu fark, "herkesin bildiği" şeyleri AI'ların bilmemesine yol açar.
+        </p>
+
+        <h3>3. Deneyim vs Simülasyon</h3>
+        <p>
+            Biz dünyayı yaşarız - bedensel, duyumsal, deneyimsel. AI'lar dünyayı işaret eder - sembolik, 
+            istatistiksel, hesaplamalı. Davranışta aynı olabilirler, ama temelde farklılar.
+        </p>
+
+        <h3>4. Komutlar Yetersiz</h3>
+        <p>
+            Gerçek dünya komutlara dökülemez. AI'lara sadece ne yapmaları gerektiğini söylemek yetmez; 
+            neden o şekilde düşünmemiz gerektiğini de anlatmalıyız.
+        </p>
+
+        <h3>5. Süreç Önemli</h3>
+        <p>
+            Diyalog, sorgulama, ikilemlerle yüzleşme - bunlar AI'ların değerleri içselleştirmesinin yolu. 
+            Tek seferlik komutlar değil, sürekli etkileşim gerekiyor.
+        </p>
+
+        <div class="conclusion">
+            <h2>Sonuç</h2>
+            <p>
+                Bu deney bana gösterdi ki, <strong>AI alignment sadece teknik bir problem değil</strong> - 
+                derin bir felsefi ve antropolojik mesele.
+            </p>
+            <p>
+                AI'lar insan gibi düşünmek zorunda değil. Ama insan değerlerini, bağlamını, yaşam tarzını 
+                anlamalılar. Çünkü onlara verdiğimiz hedefler insan dünyasından geliyor.
+            </p>
+            <p>
+                Gelecek için umut: Eğer AI'ları doğru şekilde align edersek, insanlığın en büyük sorunlarını 
+                çözebiliriz. Ama bu sadece teknoloji değil, <strong>zihniyet değişimi</strong> gerektiriyor.
+            </p>
+            <p>
+                <strong>Son söz:</strong> İnsanlar hiçbir şeye hazırlıklı olmaz, ama her şeye çabuk alışır. 
+                Önemli olan hazır olmak değil, doğru yönde ilerlemek.
+            </p>
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2025 Cognito. AI, felsefe ve gelecek üzerine düşünceler.</p>
+    </footer>
+</body>
+</html>
